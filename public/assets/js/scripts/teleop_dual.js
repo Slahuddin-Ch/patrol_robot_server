@@ -43,13 +43,14 @@ function init(){
         cmdVel: cmdVel
     });
 
-    // camera_viewer = new MJPEGCANVAS.Viewer({
-    //     divID : 'camera_viewer',
-    //     host : ros_wessocket_ip,
-    //     width : 500,
-    //     height : 400,
-    //     topic : '/rrbot/camera1/image_raw'
-    //   });
+    camera_viewer = new MJPEGCANVAS.Viewer({
+        divID : 'camera_viewer',
+        host : ros_wessocket_ip,
+        width : 500,
+        height : 400,
+        topic : '/rrbot/camera1/image_raw',
+        port : 9092
+      });
 
       control_service = new ROSLIB.Service({
         ros: ros,
