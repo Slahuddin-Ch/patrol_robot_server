@@ -2,42 +2,17 @@ window.WebrtcRos = (function() {
 	var newStreamId = function() {
 		return "webrtc_ros-stream-"+Math.floor(Math.random()*1000000000).toString();
 	};
-	var webrtc_wessocket_ip = "20.197.50.78:9091"
+	var webrtc_wessocket_ip = window.location.hostname
 	var WebrtcRosConnection = function(signalingServerPath, configuration) {
-		this.signalingServerPath = signalingServerPath || (location.protocol === 'https:' ? 'wss://' : 'ws://')+webrtc_wessocket_ip+"/webrtc";
+		this.signalingServerPath = signalingServerPath || (location.protocol === 'https:' ? 'wss://' : 'ws://')+webrtc_wessocket_ip+":9091/webrtc";
 		this.onConfigurationNeeded = undefined;
 		this.signalingChannel = null;
 		this.peerConnection = null;
 		this.peerConnectionMediaConstraints = {
 			optional: [{DtlsSrtpKeyAgreement: true}]
 		};
-		this.peerConnectionConfiguration = {
-			iceServers: [
-				{
-					urls: "stun:stun.relay.metered.ca:80",
-				},
-				{
-					urls: "turn:a.relay.metered.ca:80",
-					username: "",
-					credential: "",
-				},
-				{
-					urls: "turn:a.relay.metered.ca:80?transport=tcp",
-					username: "",
-					credential: "",
-				},
-				{
-					urls: "turn:a.relay.metered.ca:443",
-					username: "",
-					credential: "",
-				},
-				{
-					urls: "turn:a.relay.metered.ca:443?transport=tcp",
-					username: "",
-					credential: "",
-				},
-			],
-		  };
+
+		this.peerConnectionConfiguration = configuration;
 		
 		console.log("peerConnectionConfiguration",this.peerConnectionConfiguration);
 

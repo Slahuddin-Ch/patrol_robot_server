@@ -1,5 +1,4 @@
-var ros_wessocket_ip = "20.197.50.78"
-console.log("WEBSOCKET IP", `ws://${ros_wessocket_ip}:9090`)
+var ros_wessocket_ip = window.location.hostname
 var ros;
 var cmdVel;
 var camera_viewer;
