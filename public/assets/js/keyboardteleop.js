@@ -76,14 +76,14 @@ KEYBOARDTELEOP.Teleop = function(options) {
     // publish the command
     var twist = new ROSLIB.Message({
       linear : {
-        x : linear,
+        x : x,
         y : 0,
         z : 0
       },
       angular : {
         x : 0,
         y : 0,
-        z : angular
+        z : z
       }
     });
     console.log('publishing');
