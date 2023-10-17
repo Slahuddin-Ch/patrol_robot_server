@@ -6,10 +6,10 @@ function on_ready(callback)
 		document.addEventListener("DOMContentLoaded", callback.bind(document));
 }
 
-on_ready(function() {
+function initializeWebrtc(configuration) {
 	let topic = "ros_image:/rrbot/camera1/image_raw";
 	console.log("Establishing WebRTC connection");
-	let conn = WebrtcRos.createConnection();
+	let conn = WebrtcRos.createConnection(undefined, configuration);
 	conn.onConfigurationNeeded = function()
 	{
 		console.log("Requesting WebRTC video subscription");
@@ -26,4 +26,10 @@ on_ready(function() {
 		conn.sendConfigure();
 	}
 	conn.connect();
-});
+};
+
+async function getStunAndTurnServerconfig(){
+	const response = await fetch(`${window.location.origin}/configuration`);
+	return await response.json();
+}
+on_ready(getStunAndTurnServerconfig().then(configuration => {initializeWebrtc(configuration)}));
